@@ -1,0 +1,30 @@
+﻿@model GameStoreNew.Models.Developer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 style="color: white;">Details</h1>
+
+<div style="color: white;">
+    <h4>Developer</h4>
+    <hr />
+    <dl class="row" style="color: white;">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DeveloperName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DeveloperName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

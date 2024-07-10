@@ -1,0 +1,54 @@
+﻿@model GameStoreNew.Models.Game
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 style="color: white;">Details</h1>
+
+<div>
+    <h4 style="color: white;">Game</h4>
+    <hr />
+    <dl class="row" style="color: white;">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.YearPublished)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.YearPublished)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GameArt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GameArt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DownloadURL)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DownloadURL)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Developer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Developer.DeveloperName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
