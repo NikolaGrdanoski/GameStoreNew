@@ -271,5 +271,21 @@ namespace GameStoreNew.Controllers
 
             return fileName;
         }*/
+
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> Buy(int id)
+        {
+            var userId = User.Identity.Name;
+            var userGame = new UserGames
+            {
+                StoreUser = userId,
+                GameId = id
+            };
+
+            _context.UserGames.Add(userGame);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
