@@ -39,11 +39,14 @@
                 <span asp-validation-for="DownloadURL" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label for="CategoryId" class="control-label">Categories</label>
+                <select multiple name="Categories" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="DeveloperId" class="control-label"></label>
                 <select asp-for="DeveloperId" class="form-control" asp-items="ViewBag.DeveloperId">
                     <option value="">Select</option>
                 </select>
-                <span asp-validation-for="DeveloperId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

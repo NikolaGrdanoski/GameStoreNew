@@ -11,7 +11,7 @@ namespace GameStoreNew.Models
         [StringLength(100)]
         public string Name { get; set; }
 
-        [Display(Name = "Year Published")]
+        [Display(Name = "Date Published")]
         public DateOnly? YearPublished { get; set; }
 
         public string? Description { get; set; }

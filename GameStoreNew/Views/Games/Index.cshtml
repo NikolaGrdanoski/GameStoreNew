@@ -87,7 +87,7 @@
                         <h3 class="card-title">@item.Name</h3>
                         <p class="card-text">Developer: @Html.DisplayFor(modelItem => item.Developer)</p>
                         <p class="card-text">Year: @Html.DisplayFor(modelItem => item.YearPublished)</p>
-                        <p class="card-text">Category: @Html.DisplayFor(modelItem => item.GameCategories)</p>
+                        <p class="card-text">Categories: @Html.DisplayFor(modelItem => item.GameCategories)</p>
                         <a asp-action="Details" asp-route-id="@item.Id"> Details </a>
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {

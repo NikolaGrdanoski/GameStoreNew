@@ -23,7 +23,5 @@ namespace GameStoreNew.ViewModels
         public Developer? Developer { get; set; }
 
         public ICollection<GameCategory>? GameCategories { get; set; }
-
-        public IFormFile Image { get; set; }
     }
 }

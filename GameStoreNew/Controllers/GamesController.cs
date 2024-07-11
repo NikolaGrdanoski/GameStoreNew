@@ -28,7 +28,7 @@ namespace GameStoreNew.Controllers
         // GET: Games
         public async Task<IActionResult> Index(string searchString, string searchDeveloper)
         {
-            var games = _context.Game.AsQueryable();
+            IQueryable<Game> games = _context.Game.AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -80,18 +80,18 @@ namespace GameStoreNew.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create(GameArtViewModel gameArtViewModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,YearPublished,Description,GameArt,DownloadURL,DeveloperId")] Game game, List<int> CategoryId)
         {
-            /*if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 game.GameCategories = new List<GameCategory>();
                 CategoryId.ForEach(c =>
                 {
-                    if(game.GameArt != null)
+                    /*if(game.GameArt != null)
                     {
-                        string fileName = imageFile(game);
+                        string fileName = imageFile(gameArtViewModel);
                         game.GameArt = fileName;
-                    }
+                    }*/
                     var categoryId = c;
                     var category = _context.Category.FirstOrDefault(ca => ca.Id == categoryId);
                     var gameCategory = new GameCategory { GameId = game.Id, Game = game, CategoryId = categoryId, Category = category };
@@ -104,9 +104,9 @@ namespace GameStoreNew.Controllers
             }
             ViewData["DeveloperId"] = new SelectList(_context.Developer, "Id", "DeveloperName", game.DeveloperId);
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "CategoryName");
-            return View(game);*/
+            return View(game);
 
-            if(ModelState.IsValid)
+            /*if(ModelState.IsValid)
             {
                 string fileName = imageFile(gameArtViewModel);
 
@@ -124,9 +124,9 @@ namespace GameStoreNew.Controllers
                 _context.Add(game);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+            }*/
 
-            return View();
+            //return View();
         }
 
         // GET: Games/Edit/5
@@ -254,7 +254,7 @@ namespace GameStoreNew.Controllers
             return _context.Game.Any(e => e.Id == id);
         }
 
-        private string imageFile(GameArtViewModel gameArtViewModel)
+        /*private string imageFile(GameArtViewModel gameArtViewModel)
         {
             string fileName = null;
 
@@ -270,6 +270,6 @@ namespace GameStoreNew.Controllers
             }
 
             return fileName;
-        }
+        }*/
     }
 }
