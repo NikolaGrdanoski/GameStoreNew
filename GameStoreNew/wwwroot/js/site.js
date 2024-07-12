@@ -5,6 +5,6 @@
 
 $(document).ready(function () {
     $("#buy-btn").on("click", function () {
-        alert("Confirm purchase?");
+        alert("Game purchased");
     });
 });

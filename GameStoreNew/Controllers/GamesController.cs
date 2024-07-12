@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Razor.Language.Extensions;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using GameStoreNew.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GameStoreNew.Areas.Identity.Data;
 
 namespace GameStoreNew.Controllers
 {
@@ -18,11 +20,13 @@ namespace GameStoreNew.Controllers
     {
         private readonly GameStoreNewContext _context;
         private readonly IHostingEnvironment hostingEnvironment;
+        private readonly UserManager<GameStoreNewUser> userManager;
 
         public GamesController(GameStoreNewContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             hostingEnvironment = hostingEnvironment;
+            userManager = userManager;
         }
 
         // GET: Games
@@ -282,10 +286,40 @@ namespace GameStoreNew.Controllers
                 GameId = id
             };
 
+            var alreadyPurchased = await _context.UserGames.Where(g => g.StoreUser == userId && g.GameId == id).FirstOrDefaultAsync();
+
+            if(alreadyPurchased != null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             _context.UserGames.Add(userGame);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> Return(int id)
+        {
+            //var user = await userManager.GetUserAsync(HttpContext.User);
+            var userId = User.Identity.Name;
+
+            if (id == null)
+            {
+                return NotFound(ModelState);
+            }
+
+            var game = _context.UserGames.Where(g => g.GameId == id && g.StoreUser == userId).FirstOrDefault();
+
+            if(game == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            _context.UserGames.Remove(game);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(UserGames));
         }
     }
 }

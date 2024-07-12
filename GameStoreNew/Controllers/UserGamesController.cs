@@ -6,16 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GameStoreNew.Models;
+using Microsoft.AspNetCore.Authorization;
+using GameStoreNew.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace GameStoreNew.Controllers
 {
     public class UserGamesController : Controller
     {
         private readonly GameStoreNewContext _context;
+        private readonly UserManager<GameStoreNewUser> userManager;
 
         public UserGamesController(GameStoreNewContext context)
         {
             _context = context;
+            userManager = userManager;
         }
 
         // GET: UserGames
@@ -158,6 +163,29 @@ namespace GameStoreNew.Controllers
         private bool UserGamesExists(int id)
         {
             return _context.UserGames.Any(e => e.Id == id);
+        }
+
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> Return(int id)
+        {
+            //var user = await userManager.GetUserAsync(HttpContext.User);
+            var userId = User.Identity.Name;
+
+            if (id == null)
+            {
+                return NotFound(ModelState);
+            }
+
+            var game = _context.UserGames.Where(g => g.GameId == id && g.StoreUser == userId).FirstOrDefault();
+
+            if (game == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            _context.UserGames.Remove(game);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(UserGames));
         }
     }
 }
