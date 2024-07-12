@@ -124,9 +124,9 @@ namespace GameStoreNew.Controllers
                 _context.Add(game);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }*/
+            }
 
-            //return View();
+            return View();*/
         }
 
         // GET: Games/Edit/5
@@ -258,14 +258,14 @@ namespace GameStoreNew.Controllers
         {
             string fileName = null;
 
-            if (gameArtViewModel.Image != null)
+            if (gameArtViewModel.GameArt != null)
             {
                 string fileDir = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(gameArtViewModel.Image.FileName);
+                fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(gameArtViewModel.GameArt.FileName);
                 string filePath = Path.Combine(fileDir, fileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    gameArtViewModel.Image.CopyTo(fileStream);
+                    gameArtViewModel.GameArt.CopyTo(fileStream);
                 }
             }
 

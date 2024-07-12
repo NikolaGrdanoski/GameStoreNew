@@ -4,6 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
+<script src="jquery-3.7.1.min.js">
+    $(document).ready(function () {
+        $("#buy-btn").on("click", function () {
+            alert("Confirm purchase?");
+        });
+    });
+</script>
+
 <h1>Index</h1>
 
 <form asp-action="Index" method="get">
@@ -98,9 +106,9 @@
                         <p class="card-text">Categories: @Html.DisplayFor(modelItem => item.GameCategories)</p>
                         @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
                         {
-                            <a asp-action="Buy" asp-route-id="@item.Id" class="btn btn-primary" style="display:inline">Buy</a>
+                            <a asp-action="Buy" asp-route-id="@item.Id" class="btn btn-warning" id="buy-btn" style="display:inline">Buy</a>
                         }
-                        <a asp-action="Details" asp-route-id="@item.Id"> Details </a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary" style="display:inline"> Details </a>
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {
                             <a asp-action="Edit" asp-route-id="@item.Id"> Edit </a>

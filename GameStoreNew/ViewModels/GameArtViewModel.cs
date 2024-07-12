@@ -15,7 +15,7 @@ namespace GameStoreNew.ViewModels
         public string? Description { get; set; }
 
         [Display(Name = "Game Art")]
-        public string? GameArt { get; set; }
+        public IFormFile? GameArt { get; set; }
 
         [Display(Name = "Download")]
         public string? DownloadURL { get; set; }
