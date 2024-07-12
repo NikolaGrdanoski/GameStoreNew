@@ -24,14 +24,28 @@ namespace GameStoreNew.Controllers
         }
 
         // GET: UserGames
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var gameStoreNewContext = _context.UserGames.Include(u => u.Game);
-            return View(await gameStoreNewContext.ToListAsync());
+            //var gameStoreNewContext = _context.UserGames.Include(u => u.Game);
+            //return View(await gameStoreNewContext.ToListAsync());
+
+            var user = User.Identity.Name;
+            IQueryable<UserGames> games = _context.UserGames.AsQueryable().Where(g => g.StoreUser == user);
+            IQueryable<string> categoriesQuery = _context.Category.Distinct().Select(g => g.CategoryName).Distinct();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                games = games.Where(g => g.Game.Name.Contains(searchString));
+            }
+
+            games = games.Include(g => g.Game).ThenInclude(g => g.Developer);
+
+            //var gameStoreNewContext = _context.Game.Include(g => g.Developer);
+            return View(await games.ToListAsync());
         }
 
-        // GET: UserGames/Details/5
-        public async Task<IActionResult> Details(int? id)
+            // GET: UserGames/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
