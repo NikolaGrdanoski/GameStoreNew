@@ -1,24 +1,16 @@
-﻿@model IEnumerable<GameStoreNew.Models.Game>
+﻿@model /*IEnumerable<GameStoreNew.Models.Game>*/ GameStoreNew.ViewModels.GameSearchViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<script src="jquery-3.7.1.min.js">
-    $(document).ready(function () {
-        $("#buy-btn").on("click", function () {
-            alert("Game purchased");
-        });
-    });
-</script>
-
 <h1>Index</h1>
 
-<form asp-action="Index" method="get">
+<form asp-controller="Games" asp-action="Index" method="get">
     <div>
         <p style="color: white;">
-            Search Game By Title: <input type="text" class="form-control" name="searchGameTitle" value=""/>
-            <button type="submit" class="btn btn-primary" value="Search">Search</button>
+            Search Game By Title: <input asp-for="searchString" type="text" class="form-control" />
+            <input type="submit" class="btn btn-primary" value="Search"/>
         </p>
     </div>
 </form>
@@ -30,64 +22,11 @@
     </p>
 }
 
-<!--<table class="table" style="color: white">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.YearPublished)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GameArt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DownloadURL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Developer)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.YearPublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GameArt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DownloadURL)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Developer.DeveloperName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>-->
+
 
 <div class="container-lg">
     <div class="row">
-        @foreach (var item in Model)
+        @foreach (var item in Model.CurrentGames)
         {
             <div class="col-md-6">
                 <div class="card smooth-transition">
@@ -103,7 +42,7 @@
                         }
                         <p class="card-text">Developer: @Html.DisplayFor(modelItem => item.Developer.DeveloperName)</p>
                         <p class="card-text">Date Published: @Html.DisplayFor(modelItem => item.YearPublished)</p>
-                        <p class="card-text">Categories: @Html.DisplayFor(modelItem => item.GameCategories)</p>
+                        <p class="card-text">Categories: @Html.DisplayFor(modelItem => item.GameCategories) </p>
                         @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
                         {
                             <a asp-action="Buy" asp-route-id="@item.Id" class="btn btn-warning" id="buy-btn" style="display:inline">Buy</a>

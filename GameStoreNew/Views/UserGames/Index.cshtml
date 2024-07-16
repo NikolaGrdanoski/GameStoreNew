@@ -58,7 +58,6 @@
                         }
                         <p class="card-text">Developer: @Html.DisplayFor(modelItem => item.Game.Developer.DeveloperName)</p>
                         <p class="card-text">Date Published: @Html.DisplayFor(modelItem => item.Game.YearPublished)</p>
-                        <p class="card-text">Categories: @Html.DisplayFor(modelItem => item.Game.GameCategories)</p>
                         <a asp-action="Details" asp-route-id="@item.Id"> Details </a>
                         @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
                         {

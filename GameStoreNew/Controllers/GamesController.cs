@@ -30,24 +30,26 @@ namespace GameStoreNew.Controllers
         }
 
         // GET: Games
-        public async Task<IActionResult> Index(string searchString, string searchDeveloper)
+        public async Task<IActionResult> Index(string searchString)
         {
-            IQueryable<Game> games = _context.Game.AsQueryable();
+            IQueryable<Game> games = _context.Game;
+            IQueryable<string> gamesQuery = _context.Game.OrderBy(g => g.Name).Select(g => g.Name).Distinct();
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 games = games.Where(g => g.Name.Contains(searchString));
             }
 
-            if (!string.IsNullOrEmpty(searchDeveloper))
-            {
-                games = games.Where(g => g.Developer.DeveloperName.Contains(searchString));
-            }
+            //games = games.Include(g => g.Developer).Include(g => g.GameCategories).Include("GameCategories.Category");
 
-            games = games.Include(g => g.Developer).Include(g => g.GameCategories).Include("GameCategories.Category");
+            var selectGamesViewModel = new GameSearchViewModel
+            {
+                CurrentGames = await games.ToListAsync(),
+                SelectGames = new SelectList(await gamesQuery.ToListAsync()),
+            };
 
             //var gameStoreNewContext = _context.Game.Include(g => g.Developer);
-            return View(await games.ToListAsync());
+            return View(selectGamesViewModel);
         }
 
         // GET: Games/Details/5
