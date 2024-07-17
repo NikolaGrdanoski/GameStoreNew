@@ -25,25 +25,16 @@
        }></style>
 
 <body>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <div class="text-center">
+    <div class="container d-flex align-items-center justify-content-center min-vh-100">
         <!--<h1 class="display-4">Welcome</h1>-->
-        <h1 class="display-4" style="color: white">Welcome To GameGalaxy</h1>
-        <!--<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>-->
-        <nav>
-            <a asp-controller="Games" asp-action="Index"><button type="button" class="btn btn-primary btn-lg btn-block" name="categorybutton"> Start </button></a>
-            <!--<a asp-controller="Developers" asp-action="Index"><button type="button" class="btn btn-primary btn-lg btn-block" name="categorybutton"> Developers </button></a>
-            <a asp-controller="Categories" asp-action="Index"><button type="button" class="btn btn-primary btn-lg btn-block" name="categorybutton"> Categories </button></a>-->
-        </nav>
+        <div>
+            <h1 class="display-4" style="color: white">Welcome To GameGalaxy</h1>
+            <!--<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>-->
+            <nav class="text-center">
+                <a asp-controller="Games" asp-action="Index"><button type="button" class="btn btn-primary btn-block" name="categorybutton"> Start </button></a>
+                <!--<a asp-controller="Developers" asp-action="Index"><button type="button" class="btn btn-primary btn-lg btn-block" name="categorybutton"> Developers </button></a>
+                <a asp-controller="Categories" asp-action="Index"><button type="button" class="btn btn-primary btn-lg btn-block" name="categorybutton"> Categories </button></a>-->
+            </nav>
+        </div>
     </div>
 </body>
