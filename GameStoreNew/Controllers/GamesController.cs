@@ -40,7 +40,7 @@ namespace GameStoreNew.Controllers
                 games = games.Where(g => g.Name.Contains(searchString));
             }
 
-            //games = games.Include(g => g.Developer).Include(g => g.GameCategories).Include("GameCategories.Category");
+            games = games.Include(g => g.Developer).Include(g => g.GameCategories).Include("GameCategories.Category");
 
             var selectGamesViewModel = new GameSearchViewModel
             {
