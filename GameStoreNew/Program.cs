@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using GameStoreNew.Models;
 using Microsoft.AspNetCore.Identity;
 using GameStoreNew.Areas.Identity.Data;
