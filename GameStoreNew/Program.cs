@@ -30,6 +30,17 @@ builder.Services.AddControllersWithViews()
      options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
  });
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.SetIsOriginAllowed(origin => new Uri(origin).IsLoopback)
+        .AllowCredentials()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
 //Password Strength Setting
 builder.Services.Configure<IdentityOptions>(options =>
 {
